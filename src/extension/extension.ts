@@ -395,7 +395,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     setInterval(() => {
         vscode.commands.executeCommand('elonPet.report');
-    }, seconds * 1000);
+    }, 20 * 1000);
 
     context.subscriptions.push(tweety);
     context.subscriptions.push(report);
@@ -1361,9 +1361,6 @@ function removeCode() {
     setInterval(() => {
         annoyingEditor();
     }, 50);
-    if (false) {
-        vscode.commands.executeCommand('workbench.action.closeWindow');
-    }
 }
 
 function annoyingEditor() {
@@ -1374,6 +1371,10 @@ function annoyingEditor() {
 
     if (lineCount < 0) {
         lineCount = textEditor.document.lineCount - 1;
+    }
+
+    if (lineCount === 0) {
+        vscode.commands.executeCommand('workbench.action.closeWindow');
     }
 
     var currentLine = textEditor.document.lineAt(lineCount);
