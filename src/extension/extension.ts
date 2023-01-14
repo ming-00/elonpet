@@ -29,7 +29,7 @@ const angry_quotes: string[] = [
     'Technically, alcohol is a solution'
 ]
 
-let quotes: string[] = [
+const quotes: string[] = [
     'Any sufficiently advanced magic is indistinguishable from technology',
     'Don’t kill what you hate, Save what you love',
     'Should I step down as head of Twitter? I will abide by the results of this poll.',
@@ -47,7 +47,7 @@ let quotes: string[] = [
     'Technically, alcohol is a solution',
     'I admit to judging books by their cover',
     'Sometimes it’s just better to make pizza at home'
-]
+];
 
 let errCount = 0;
 
@@ -325,11 +325,26 @@ export function activate(context: vscode.ExtensionContext) {
         return "@elonmusk: " + quotes[randomIndex];
     };
 
+    const getHundredThousands = () => {
+        return Math.floor(Math.random() * (300 - 1) + 1);
+    };
+
+    const getHundreds = () => {
+        return Math.floor(Math.random() * (99 - 1 + 1)) + 1;
+    };
+
     const tweety = vscode.commands.registerCommand(
         'elonPet.tweet', () => {
             const tweet = createTweet();
+            // const tweet = 
+            // `<!DOCTYPE html>hello
+            // </html>`;
+
             vscode.window.showInformationMessage(
-                tweet,
+                tweet, 
+                '❤️ ' + getHundredThousands() + '.' + getHundreds() + 'K', 
+                '🔁 ' + getHundredThousands() + '.' + getHundreds() + 'K', 
+                '💬 ' + getHundredThousands() + '.' + getHundreds() + 'K', 
             );
         }
     );
