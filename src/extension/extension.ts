@@ -16,6 +16,33 @@ import { randomName } from '../common/names';
 import * as localize from '../common/localize';
 import { availableColors, normalizeColor } from '../panel/pets';
 
+let good_quotes: string[] = [
+    'Any sufficiently advanced magic is indistinguishable from technology',
+    'Don’t kill what you hate, Save what you love',
+    'Should I step down as head of Twitter? I will abide by the results of this poll.',
+    'Wait, if I Tweet does that count as work?',
+    'Optimism, pessimism, f**k that; we\'re going to make it happen. As God is my bloody witness, I\'m hell-bent on making it work.',
+    'Failure is an option here. If things are not failing, you are not innovating enough.',
+    'Engineering is the closest thing to magic that exists in the world.',
+    'For my part, I will never give up, and I mean never.',
+    'I made an offer.',
+    'Let that sink in...',
+    'I was always crazy on Twitter fyi.',
+    'And...we just hit another all-time high in Twitter usage lol'
+]
+
+let bad_quotes: string[] = [
+    'Time is the ultimate currency',
+    'thinking of quitting my jobs & becoming an influencer full-time wdyt',
+    'Technically, alcohol is a solution',
+    'I admit to judging books by their cover',
+    'Sometimes it’s just better to make pizza at home',
+    'One word: Doge.',
+    'That\'s my lesson for taking a vacation: Vacation will kill you.',
+    'Patience is a virtue, and I\'m learning patience. It\'s a tough lesson.',
+    'You are fired.'
+]
+
 const EXTRA_PETS_KEY = 'elonPet.extra-pets';
 const EXTRA_PETS_KEY_TYPES = EXTRA_PETS_KEY + '.types';
 const EXTRA_PETS_KEY_COLORS = EXTRA_PETS_KEY + '.colors';
