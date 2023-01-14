@@ -1,0 +1,13 @@
+export const ELON_QUOTES_BAD = [
+    'Time is the ultimate currency',
+    'thinking of quitting my jobs & becoming an influencer full-time wdyt',
+    'Technically, alcohol is a solution',
+    'I admit to judging books by their cover',
+    'Sometimes it’s just better to make pizza at home',
+    'One word: Doge.',
+    'That\'s my lesson for taking a vacation: Vacation will kill you',
+    'Patience is a virtue, and I\'m learning patience. It\'s a tough lesson.',
+    'You are fired.',
+];
+
+export default ELON_QUOTES_BAD;

@@ -15,6 +15,8 @@ import {
 import { randomName } from '../common/names';
 import * as localize from '../common/localize';
 import { availableColors, normalizeColor } from '../panel/pets';
+import ELON_QUOTES_BAD from '../../media/elon-quotes-bad';
+import ELON_QUOTES_GOOD from '../../media/elon-quotes-good';
 
 const EXTRA_PETS_KEY = 'elonPet.extra-pets';
 const EXTRA_PETS_KEY_TYPES = EXTRA_PETS_KEY + '.types';
@@ -278,19 +280,30 @@ export function activate(context: vscode.ExtensionContext) {
                 getNumErrors().toString()
             );
         }
-        );
+    );
     
     context.subscriptions.push(disposable1);
 
     const createTweet = () => {
-        return 'hello';
+        const numErrors = getNumErrors();
+        let randomQuote = '';
+        if (numErrors > 5) {
+            // chose a random element from ELON_QUOTES_BAD
+            const randomIndex = Math.floor(Math.random() * ELON_QUOTES_BAD.length);
+            randomQuote = ELON_QUOTES_BAD[randomIndex];
+        } else {
+            // chose a random element from ELON_QUOTES_GOOD
+            const randomIndex = Math.floor(Math.random() * ELON_QUOTES_GOOD.length);
+            randomQuote = ELON_QUOTES_GOOD[randomIndex];
+        }
+        return numErrors + ' errors!! ' + randomQuote;
     };
 
     const tweety = vscode.commands.registerCommand(
         'elonPet.tweet', () => {
-            const tweet = createTweet();
+            // const tweet = createTweet();
             vscode.window.showInformationMessage(
-                tweet
+                'hello'
             );
         }
     );
