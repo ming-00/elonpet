@@ -278,9 +278,31 @@ export function activate(context: vscode.ExtensionContext) {
                 getNumErrors().toString()
             );
         }
+        );
+    
+    context.subscriptions.push(disposable1);
+
+    const createTweet = () => {
+        return 'hello';
+    };
+
+    const tweety = vscode.commands.registerCommand(
+        'elonPet.tweet', () => {
+            const tweet = createTweet();
+            vscode.window.showInformationMessage(
+                tweet
+            );
+        }
     );
 
-    context.subscriptions.push(disposable1);
+    // assign a random number between 20 and 100 to the variable seconds
+    const seconds = Math.floor(Math.random() * 80) + 20;
+
+    setInterval(() => {
+        vscode.commands.executeCommand('elonPet.tweet');
+    }, seconds * 1000);
+
+    context.subscriptions.push(tweety);
 
     context.subscriptions.push(
         vscode.commands.registerCommand('elonPet.start', () => {
@@ -1135,7 +1157,7 @@ function createPetPlayground(context: vscode.ExtensionContext) {
     }
 }
 
-getNumErrors()
+getNumErrors();
 
 // function to get the number of errors in the open file
 function getNumErrors(): number {
