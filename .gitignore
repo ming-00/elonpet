@@ -1,0 +1,9 @@
+out
+dist
+node_modules
+.vscode-test/
+*.vsix
+.build-out/
+coverage/
+.nyc_output/
+.idea/
