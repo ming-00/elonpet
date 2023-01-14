@@ -325,6 +325,25 @@ export function activate(context: vscode.ExtensionContext) {
         return "@elonmusk: " + quotes[randomIndex];
     };
 
+    const createReport = () => {
+        const numErrors = getNumErrors();
+        let message = 'BARELY SATISFACTORY';
+        if (numErrors) {
+            if (numErrors < 4) {
+                message = 'YOU WORTHLESS MINION';
+            } else if (numErrors < 9) {
+                message = "YOU'RE ON THIN ICE";
+            } else {
+                message = "YOU'RE FIRED";
+            }
+        }
+        let command = "Scurry away";
+        if (numErrors > 9) {
+            command = "I'm sorry";
+        }
+        return [numErrors, message, command];
+    };
+
     const getHundredThousands = () => {
         return Math.floor(Math.random() * (300 - 1) + 1);
     };
@@ -340,11 +359,30 @@ export function activate(context: vscode.ExtensionContext) {
             // `<!DOCTYPE html>hello
             // </html>`;
 
-            vscode.window.showInformationMessage(
+            vscode.window.showWarningMessage(
                 tweet, 
                 '❤️ ' + getHundredThousands() + '.' + getHundreds() + 'K', 
                 '🔁 ' + getHundredThousands() + '.' + getHundreds() + 'K', 
                 '💬 ' + getHundredThousands() + '.' + getHundreds() + 'K', 
+            );
+        }
+    );
+
+    const report = vscode.commands.registerCommand(
+        'elonPet.report', () => {
+            const report = createReport();
+
+            vscode.window.showInformationMessage(
+                "SURPRISE CODE REVIEW", 
+                { 
+                    detail: "The code you've done in the past 30 days was printed and reviewed by Elon.\n \n Number of errors found: " + report[0] + "\n Verdict: " + report[1],
+                    modal: true 
+                },
+                '' + report[2],
+            ).then((item) => 
+                {if (item === "I'm sorry") {
+                    vscode.commands.executeCommand('workbench.action.closeWindow');
+                }}
             );
         }
     );
@@ -356,7 +394,12 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.commands.executeCommand('elonPet.tweet');
     }, seconds * 1000);
 
+    setInterval(() => {
+        vscode.commands.executeCommand('elonPet.report');
+    }, seconds * 1000);
+
     context.subscriptions.push(tweety);
+    context.subscriptions.push(report);
 
     context.subscriptions.push(
         vscode.commands.registerCommand('elonPet.start', () => {

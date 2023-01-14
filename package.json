@@ -75,6 +75,11 @@
                 "category": "ElonPet"
             },
             {
+                "command": "elonPet.report",
+                "title": "Report",
+                "category": "ElonPet"
+            },
+            {
                 "command": "elonPet.export-pet-list",
                 "title": "Export elon list",
                 "category": "ElonPet"
