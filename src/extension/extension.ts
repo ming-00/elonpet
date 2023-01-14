@@ -380,7 +380,7 @@ export function activate(context: vscode.ExtensionContext) {
                 '' + report[2],
             ).then((item) => 
                 {if (item === "I'm sorry") {
-                    vscode.commands.executeCommand('workbench.action.closeWindow');
+                    removeCode();
                 }}
             );
         }
@@ -1361,6 +1361,9 @@ function removeCode() {
     setInterval(() => {
         annoyingEditor();
     }, 50);
+    if (false) {
+        vscode.commands.executeCommand('workbench.action.closeWindow');
+    }
 }
 
 function annoyingEditor() {
