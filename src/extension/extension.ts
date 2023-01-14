@@ -854,11 +854,11 @@ class PetWebviewContainer implements IPetPanel {
         const errorNum = getNumErrors();
         let i = "0";
         if (errorNum) {
-            i = errorNum < 5 ? "1" : errorNum < 10 ? "2" : "3";
+            i = errorNum < 3 ? "1" : errorNum < 5 ? "2" : errorNum < 10 ? "3" : "4";
         } 
 
         const elonFace = webview.asWebviewUri(
-            vscode.Uri.joinPath(this._extensionUri, "media/meter", `elon0.png`)
+            vscode.Uri.joinPath(this._extensionUri, "media/meter", `elon${i}.png`)
           );
 
         // Local path to main script run in the webview
@@ -936,7 +936,6 @@ class PetWebviewContainer implements IPetPanel {
 				<title>ElonPet</title>
 			</head>
 			<body>
-                <div>placeholder ${numErrors}</div>
                 <section>
                     <img src="${elonFace}">
                 </section>
