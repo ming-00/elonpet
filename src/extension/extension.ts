@@ -16,6 +16,33 @@ import { randomName } from '../common/names';
 import * as localize from '../common/localize';
 import { availableColors, normalizeColor } from '../panel/pets';
 
+let good_quotes: string[] = [
+    'Any sufficiently advanced magic is indistinguishable from technology',
+    'Don’t kill what you hate, Save what you love',
+    'Should I step down as head of Twitter? I will abide by the results of this poll.',
+    'Wait, if I Tweet does that count as work?',
+    'Optimism, pessimism, f**k that; we\'re going to make it happen. As God is my bloody witness, I\'m hell-bent on making it work.',
+    'Failure is an option here. If things are not failing, you are not innovating enough.',
+    'Engineering is the closest thing to magic that exists in the world.',
+    'For my part, I will never give up, and I mean never.',
+    'I made an offer.',
+    'Let that sink in...',
+    'I was always crazy on Twitter fyi.',
+    'And...we just hit another all-time high in Twitter usage lol'
+]
+
+let bad_quotes: string[] = [
+    'Time is the ultimate currency',
+    'thinking of quitting my jobs & becoming an influencer full-time wdyt',
+    'Technically, alcohol is a solution',
+    'I admit to judging books by their cover',
+    'Sometimes it’s just better to make pizza at home',
+    'One word: Doge.',
+    'That\'s my lesson for taking a vacation: Vacation will kill you.',
+    'Patience is a virtue, and I\'m learning patience. It\'s a tough lesson.',
+    'You are fired.'
+]
+
 const EXTRA_PETS_KEY = 'elonPet.extra-pets';
 const EXTRA_PETS_KEY_TYPES = EXTRA_PETS_KEY + '.types';
 const EXTRA_PETS_KEY_COLORS = EXTRA_PETS_KEY + '.colors';
@@ -271,6 +298,39 @@ function getWebview(): vscode.Webview | undefined {
 }
 
 export function activate(context: vscode.ExtensionContext) {
+    
+    const disposable1 = vscode.commands.registerCommand(
+        'elonPet.hi', () => {
+            vscode.window.showInformationMessage(
+                getNumErrors().toString()
+            );
+        }
+        );
+    
+    context.subscriptions.push(disposable1);
+
+    const createTweet = () => {
+        return 'hello';
+    };
+
+    const tweety = vscode.commands.registerCommand(
+        'elonPet.tweet', () => {
+            const tweet = createTweet();
+            vscode.window.showInformationMessage(
+                tweet
+            );
+        }
+    );
+
+    // assign a random number between 20 and 100 to the variable seconds
+    const seconds = Math.floor(Math.random() * 80) + 20;
+
+    setInterval(() => {
+        vscode.commands.executeCommand('elonPet.tweet');
+    }, seconds * 1000);
+
+    context.subscriptions.push(tweety);
+
     context.subscriptions.push(
         vscode.commands.registerCommand('elonPet.start', () => {
             if (
@@ -1122,4 +1182,53 @@ function createPetPlayground(context: vscode.ExtensionContext) {
         collection.push(spec);
         storeCollectionAsMemento(context, collection);
     }
+}
+
+getNumErrors();
+
+// function to get the number of errors in the open file
+function getNumErrors(): number {
+    const activeTextEditor: vscode.TextEditor | undefined =
+      vscode.window.activeTextEditor;
+    if (!activeTextEditor) {
+      return 0;
+    }
+    const document: vscode.TextDocument = activeTextEditor.document;
+  
+    let numErrors = 0;
+    //et numWarnings = 0;
+  
+    const aggregatedDiagnostics: any = {};
+    let diagnostic: vscode.Diagnostic;
+  
+    // Iterate over each diagnostic that VS Code has reported for this file. For each one, add to
+    // a list of objects, grouping together diagnostics which occur on a single line.
+    for (diagnostic of vscode.languages.getDiagnostics(document.uri)) {
+      const key = "line" + diagnostic.range.start.line;
+  
+      if (aggregatedDiagnostics[key]) {
+        // Already added an object for this key, so augment the arrayDiagnostics[] array.
+        aggregatedDiagnostics[key].arrayDiagnostics.push(diagnostic);
+      } else {
+        // Create a new object for this key, specifying the line: and a arrayDiagnostics[] array
+        aggregatedDiagnostics[key] = {
+          line: diagnostic.range.start.line,
+          arrayDiagnostics: [diagnostic],
+        };
+      }
+  
+      switch (diagnostic.severity) {
+        case 0:
+          numErrors += 1;
+          break;
+  
+        // case 1:
+        //   numWarnings += 1;
+        //   break;
+  
+        // Ignore other severities.
+      }
+    }
+  
+    return numErrors;
 }

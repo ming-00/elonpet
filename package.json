@@ -77,6 +77,16 @@
                 "icon": "media/dog.svg"
             },
             {
+                "command": "elonPet.hi",
+                "title": "Hi",
+                "category": "ElonPet"
+            },
+            {
+                "command": "elonPet.tweet",
+                "title": "Tweet",
+                "category": "ElonPet"
+            },
+            {
                 "command": "elonPet.export-pet-list",
                 "title": "Export elon list",
                 "category": "ElonPet"
