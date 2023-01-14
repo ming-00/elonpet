@@ -325,11 +325,26 @@ export function activate(context: vscode.ExtensionContext) {
         return numErrors + ' errors!! ' + randomQuote;
     };
 
+    const getHundredThousands = () => {
+        return Math.floor(Math.random() * (300 - 1) + 1);
+    };
+
+    const getHundreds = () => {
+        return Math.floor(Math.random() * (99 - 1 + 1)) + 1;
+    }
+
     const tweety = vscode.commands.registerCommand(
         'elonPet.tweet', () => {
             const tweet = createTweet();
+            // const tweet = 
+            // `<!DOCTYPE html>hello
+            // </html>`;
+
             vscode.window.showInformationMessage(
-                tweet
+                tweet, 
+                '❤️ ' + getHundredThousands() + '.' + getHundreds() + 'K', 
+                '🔁 ' + getHundredThousands() + '.' + getHundreds() + 'K', 
+                '💬 ' + getHundredThousands() + '.' + getHundreds() + 'K', 
             );
         }
     );

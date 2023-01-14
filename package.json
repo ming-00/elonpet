@@ -9,22 +9,10 @@
     "l10n": "./l10n",
     "repository": {
         "type": "github",
-        "url": "https://github.com/tonybaloney/elonPet"
+        "url": "https://github.com/ming-00/elonPet"
     },
-    "homepage": "https://tonybaloney.github.io/elonPet",
-    "bugs": "https://github.com/tonybaloney/elonPet/issues",
-    "publisher": "tonybaloney",
     "categories": [
         "Other"
-    ],
-    "keywords": [
-        "pet",
-        "cat",
-        "chicken",
-        "dog",
-        "pets",
-        "clippy",
-        "rubber duck"
     ],
     "license": "MIT",
     "icon": "icon.png",
