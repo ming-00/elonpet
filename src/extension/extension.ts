@@ -488,15 +488,7 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('elonPet.spawn-pet', async () => {
             const panel = getPetPanel();
             if (panel) {
-                const selectedPetType = await vscode.window.showQuickPick(
-                    localize.stringListAsQuickPickItemList<PetType>(ALL_PETS),
-                    {
-                        placeHolder: vscode.l10n.t('Select a coding companion'),
-                    },
-                );
-                if (selectedPetType === undefined) {
-                    return;
-                }
+                const selectedPetType = PetType.elon;
                 var elonColor: elonColor = DEFAULT_COLOR;
                 const possibleColors = availableColors();
 
@@ -528,7 +520,7 @@ export function activate(context: vscode.ExtensionContext) {
                 });
                 const spec = new PetSpecification(
                     elonColor,
-                    selectedPetType.value,
+                    selectedPetType,
                     getConfiguredSize(),
                     name,
                 );
