@@ -271,6 +271,17 @@ function getWebview(): vscode.Webview | undefined {
 }
 
 export function activate(context: vscode.ExtensionContext) {
+    
+    const disposable1 = vscode.commands.registerCommand(
+        'elonPet.hi', () => {
+            vscode.window.showInformationMessage(
+                getNumErrors().toString()
+            );
+        }
+    );
+
+    context.subscriptions.push(disposable1);
+
     context.subscriptions.push(
         vscode.commands.registerCommand('elonPet.start', () => {
             if (
@@ -1122,4 +1133,53 @@ function createPetPlayground(context: vscode.ExtensionContext) {
         collection.push(spec);
         storeCollectionAsMemento(context, collection);
     }
+}
+
+getNumErrors()
+
+// function to get the number of errors in the open file
+function getNumErrors(): number {
+    const activeTextEditor: vscode.TextEditor | undefined =
+      vscode.window.activeTextEditor;
+    if (!activeTextEditor) {
+      return 0;
+    }
+    const document: vscode.TextDocument = activeTextEditor.document;
+  
+    let numErrors = 0;
+    //et numWarnings = 0;
+  
+    const aggregatedDiagnostics: any = {};
+    let diagnostic: vscode.Diagnostic;
+  
+    // Iterate over each diagnostic that VS Code has reported for this file. For each one, add to
+    // a list of objects, grouping together diagnostics which occur on a single line.
+    for (diagnostic of vscode.languages.getDiagnostics(document.uri)) {
+      const key = "line" + diagnostic.range.start.line;
+  
+      if (aggregatedDiagnostics[key]) {
+        // Already added an object for this key, so augment the arrayDiagnostics[] array.
+        aggregatedDiagnostics[key].arrayDiagnostics.push(diagnostic);
+      } else {
+        // Create a new object for this key, specifying the line: and a arrayDiagnostics[] array
+        aggregatedDiagnostics[key] = {
+          line: diagnostic.range.start.line,
+          arrayDiagnostics: [diagnostic],
+        };
+      }
+  
+      switch (diagnostic.severity) {
+        case 0:
+          numErrors += 1;
+          break;
+  
+        // case 1:
+        //   numWarnings += 1;
+        //   break;
+  
+        // Ignore other severities.
+      }
+    }
+  
+    return numErrors;
 }
