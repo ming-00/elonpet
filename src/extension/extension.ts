@@ -311,7 +311,18 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable1);
 
     const createTweet = () => {
-        return 'hello';
+        const numErrors = getNumErrors();
+        let randomQuote = '';
+        if (numErrors > 5) {
+            // chose a random element from ELON_QUOTES_BAD
+            const randomIndex = Math.floor(Math.random() * bad_quotes.length);
+            randomQuote = bad_quotes[randomIndex];
+        } else {
+            // chose a random element from ELON_QUOTES_GOOD
+            const randomIndex = Math.floor(Math.random() * good_quotes.length);
+            randomQuote = good_quotes[randomIndex];
+        }
+        return numErrors + ' errors!! ' + randomQuote;
     };
 
     const tweety = vscode.commands.registerCommand(
@@ -324,7 +335,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     // assign a random number between 20 and 100 to the variable seconds
-    const seconds = Math.floor(Math.random() * 80) + 20;
+    const seconds = 10;
 
     setInterval(() => {
         vscode.commands.executeCommand('elonPet.tweet');
