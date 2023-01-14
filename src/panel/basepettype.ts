@@ -109,7 +109,7 @@ export abstract class BasePetType implements IPetType {
         if (size === elonSize.nano) {
             return 30;
         } else if (size === elonSize.medium) {
-            return 55;
+            return 100;
         } else if (size === elonSize.large) {
             return 110;
         } else {
