@@ -144,9 +144,8 @@
                         "type": "string",
                         "enum": [
                             "none",
-                            "forest",
-                            "castle",
-                            "beach"
+                            "twitter",
+                            "spacex"
                         ],
                         "default": "none"
                     }

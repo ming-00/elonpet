@@ -106,7 +106,7 @@ class BasePetType {
             return 30;
         }
         else if (size === "medium" /* elonSize.medium */) {
-            return 55;
+            return 100;
         }
         else if (size === "large" /* elonSize.large */) {
             return 110;
@@ -357,6 +357,26 @@ function calculateFloor(size, theme) {
                 case "nano" /* elonSize.nano */:
                 default:
                     return 45;
+            }
+        case "twitter" /* Theme.twitter */:
+            switch (size) {
+                case "medium" /* elonSize.medium */:
+                    return 40;
+                case "large" /* elonSize.large */:
+                    return 60;
+                case "nano" /* elonSize.nano */:
+                default:
+                    return 10;
+            }
+        case "spacex" /* Theme.spacex */:
+            switch (size) {
+                case "medium" /* elonSize.medium */:
+                    return 40;
+                case "large" /* elonSize.large */:
+                    return 60;
+                case "nano" /* elonSize.nano */:
+                default:
+                    return 10;
             }
     }
     return 0;

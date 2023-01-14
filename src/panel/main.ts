@@ -46,35 +46,25 @@ function calculateBallRadius(size: elonSize): number {
 
 function calculateFloor(size: elonSize, theme: Theme): number {
     switch (theme) {
-        case Theme.forest:
+        case Theme.twitter:
             switch (size) {
                 case elonSize.medium:
                     return 40;
                 case elonSize.large:
-                    return 65;
+                    return 60;
                 case elonSize.nano:
                 default:
-                    return 23;
+                    return 10;
             }
-        case Theme.castle:
+        case Theme.spacex:
             switch (size) {
                 case elonSize.medium:
-                    return 80;
+                    return 40;
                 case elonSize.large:
-                    return 120;
+                    return 60;
                 case elonSize.nano:
                 default:
-                    return 45;
-            }
-        case Theme.beach:
-            switch (size) {
-                case elonSize.medium:
-                    return 80;
-                case elonSize.large:
-                    return 120;
-                case elonSize.nano:
-                default:
-                    return 45;
+                    return 10;
             }
     }
     return 0;

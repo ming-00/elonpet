@@ -31,9 +31,8 @@ export const enum ExtPosition {
 
 export const enum Theme {
     none = 'none',
-    forest = 'forest',
-    castle = 'castle',
-    beach = 'beach',
+    twitter = 'twitter',
+    spacex = 'spacex',
 }
 
 export const enum ColorThemeKind {
@@ -61,4 +60,4 @@ export const ALL_COLORS = [
     elonColor.null,
 ];
 export const ALL_SCALES = [elonSize.nano, elonSize.medium, elonSize.large];
-export const ALL_THEMES = [Theme.none, Theme.forest, Theme.castle, Theme.beach];
+export const ALL_THEMES = [Theme.none, Theme.twitter, Theme.spacex];

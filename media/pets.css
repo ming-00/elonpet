@@ -139,6 +139,7 @@ img.pet {
 	position: absolute;
 	text-align: center;
 	background-color: #fff;
+	color: #000;
 	font-family: silkscreen, sans-serif;
 	width: 60px;
 	line-height: 1.4em;
