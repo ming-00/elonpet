@@ -29,7 +29,7 @@ let good_quotes: string[] = [
     'Let that sink in...',
     'I was always crazy on Twitter fyi.',
     'And...we just hit another all-time high in Twitter usage lol'
-]
+];
 
 let bad_quotes: string[] = [
     'Time is the ultimate currency',
@@ -41,7 +41,7 @@ let bad_quotes: string[] = [
     'That\'s my lesson for taking a vacation: Vacation will kill you.',
     'Patience is a virtue, and I\'m learning patience. It\'s a tough lesson.',
     'You are fired.'
-]
+];
 
 const EXTRA_PETS_KEY = 'elonPet.extra-pets';
 const EXTRA_PETS_KEY_TYPES = EXTRA_PETS_KEY + '.types';
@@ -75,6 +75,7 @@ class PetQuickPickItem implements vscode.QuickPickItem {
 }
 
 let webviewViewProvider: PetWebviewViewProvider;
+let numErrors = 0;
 
 function getConfiguredSize(): elonSize {
     var size = vscode.workspace
@@ -861,6 +862,16 @@ class PetWebviewContainer implements IPetPanel {
     public update() {}
 
     protected _getHtmlForWebview(webview: vscode.Webview) {
+        const errorNum = getNumErrors();
+        let i = "0";
+        if (errorNum) {
+            i = errorNum < 5 ? "1" : errorNum < 10 ? "2" : "3";
+        } 
+
+        const elonFace = webview.asWebviewUri(
+            vscode.Uri.joinPath(this._extensionUri, "media/meter", `elon0.png`)
+          );
+
         // Local path to main script run in the webview
         const scriptPathOnDisk = vscode.Uri.joinPath(
             this._extensionUri,
@@ -882,6 +893,12 @@ class PetWebviewContainer implements IPetPanel {
             'media',
             'pets.css',
         );
+        const facePath = vscode.Uri.joinPath(
+            this._extensionUri,
+            'media',
+            'face.css',
+        );
+
         const silkScreenFontPath = webview.asWebviewUri(
             vscode.Uri.joinPath(
                 this._extensionUri,
@@ -893,6 +910,7 @@ class PetWebviewContainer implements IPetPanel {
         // Uri to load styles into webview
         const stylesResetUri = webview.asWebviewUri(styleResetPath);
         const stylesMainUri = webview.asWebviewUri(stylesPathMainPath);
+        const faceUri = webview.asWebviewUri(facePath);
 
         // Get path to resource on disk
         const basePetUri = webview.asWebviewUri(
@@ -919,6 +937,7 @@ class PetWebviewContainer implements IPetPanel {
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 				<link href="${stylesResetUri}" rel="stylesheet" nonce="${nonce}">
 				<link href="${stylesMainUri}" rel="stylesheet" nonce="${nonce}">
+                <link href="${faceUri}" rel="stylesheet" nonce="${nonce}">
                 <style nonce="${nonce}">
                 @font-face {
                     font-family: 'silkscreen';
@@ -928,6 +947,10 @@ class PetWebviewContainer implements IPetPanel {
 				<title>ElonPet</title>
 			</head>
 			<body>
+                <div>placeholder ${numErrors}</div>
+                <section>
+                    <img src="${elonFace}">
+                </section>
 				<canvas id="petCanvas"></canvas>
 				<div id="petsContainer"></div>
 				<div id="foreground"></div>	
@@ -1130,6 +1153,19 @@ class PetWebviewViewProvider extends PetWebviewContainer {
 
         webviewView.webview.options = getWebviewOptions(this._extensionUri);
         webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
+
+        setInterval(() => {
+            // const errors = getNumErrors();
+            // let i = "0";
+            // if (errors) {
+            //     i = errors < 5 ? "1" : errors < 10 ? "2" : "3";
+            // }
+            const temp = getNumErrors();
+            if (numErrors !== temp) {
+                numErrors = temp;
+                webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
+            }
+          }, 1000);
 
         webviewView.webview.onDidReceiveMessage(
             handleWebviewMessage,
