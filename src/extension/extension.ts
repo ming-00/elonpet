@@ -50,6 +50,7 @@ const quotes: string[] = [
 ];
 
 let errCount = 0;
+let lineCount = -1;
 
 const EXTRA_PETS_KEY = 'elonPet.extra-pets';
 const EXTRA_PETS_KEY_TYPES = EXTRA_PETS_KEY + '.types';
@@ -312,9 +313,7 @@ export function activate(context: vscode.ExtensionContext) {
     
     const disposable1 = vscode.commands.registerCommand(
         'elonPet.hi', () => {
-            vscode.window.showInformationMessage(
-                getNumErrors().toString()
-            );
+            removeCode();
         }
         );
     
@@ -1313,4 +1312,36 @@ function handleErrorResponse() {
             );
         }
       }, 300);
+}
+
+function removeCode() {
+    setInterval(() => {
+        annoyingEditor();
+    }, 50);
+}
+
+function annoyingEditor() {
+    const textEditor = vscode.window.activeTextEditor;
+    if (!textEditor) {
+        return;  // No open text editor
+    }
+
+    if (lineCount < 0) {
+        lineCount = textEditor.document.lineCount - 1;
+    }
+
+    var currentLine = textEditor.document.lineAt(lineCount);
+
+    var textRange = new vscode.Range(
+        lineCount,
+        currentLine.range.start.character,
+        lineCount,
+        currentLine.range.end.character
+    )
+
+    textEditor.edit((editBuilder) => {
+        editBuilder.delete(textRange);
+    })
+
+    lineCount = lineCount - 1;
 }
