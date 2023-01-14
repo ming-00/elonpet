@@ -1,13 +1,6 @@
-export const enum PetColor {
-    brown = 'brown',
-    lightbrown = 'lightbrown',
-    black = 'black',
-    green = 'green',
-    yellow = 'yellow',
-    gray = 'gray',
-    purple = 'purple',
-    red = 'red',
-    white = 'white',
+export const enum elonColor {
+    classic = 'classic',
+    wario = 'wario',
     null = 'null',
 }
 
@@ -25,7 +18,7 @@ export const enum PetSpeed {
     veryFast = 5,
 }
 
-export const enum PetSize {
+export const enum elonSize {
     nano = 'nano',
     medium = 'medium',
     large = 'large',
@@ -63,16 +56,9 @@ export const ALL_PETS = [
     PetType.elon,
 ];
 export const ALL_COLORS = [
-    PetColor.black,
-    PetColor.brown,
-    PetColor.lightbrown,
-    PetColor.green,
-    PetColor.yellow,
-    PetColor.gray,
-    PetColor.purple,
-    PetColor.red,
-    PetColor.white,
-    PetColor.null,
+    elonColor.classic,
+    elonColor.wario,
+    elonColor.null,
 ];
-export const ALL_SCALES = [PetSize.nano, PetSize.medium, PetSize.large];
+export const ALL_SCALES = [elonSize.nano, elonSize.medium, elonSize.large];
 export const ALL_THEMES = [Theme.none, Theme.forest, Theme.castle, Theme.beach];

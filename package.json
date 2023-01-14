@@ -1,7 +1,7 @@
 {
-    "name": "vscode-pets",
-    "displayName": "vscode-pets",
-    "description": "Pets for your VS Code",
+    "name": "elonPet",
+    "displayName": "elonPet",
+    "description": "An Elon pet to help you code",
     "version": "1.21.0",
     "engines": {
         "vscode": "^1.73.0"
@@ -49,7 +49,7 @@
                 {
                     "type": "webview",
                     "id": "petsView",
-                    "name": "Elontime",
+                    "name": "ElonPet",
                     "when": "vscode-pets.position == 'explorer'",
                     "icon": "media/dog.svg"
                 }
@@ -122,52 +122,25 @@
         "configuration": [
             {
                 "properties": {
-                    "vscode-pets.petColor": {
+                    "elonPet.elonStyle": {
                         "type": "string",
                         "enum": [
-                            "black",
-                            "lightbrown",
-                            "brown",
-                            "green",
-                            "yellow",
-                            "gray",
-                            "purple",
-                            "red",
-                            "white"
+                            "classic",
+                            "wario"
                         ],
-                        "default": "brown",
-                        "description": "Pet color",
+                        "default": "classic",
                         "scope": "window"
                     },
-                    "vscode-pets.petType": {
-                        "type": "string",
-                        "enum": [
-                            "elon"
-                        ],
-                        "default": "cat",
-                        "description": "Pet type",
-                        "scope": "window"
-                    },
-                    "vscode-pets.petSize": {
+                    "elonPet.elonSize": {
                         "type": "string",
                         "enum": [
                             "nano",
                             "medium",
                             "large"
                         ],
-                        "default": "nano",
-                        "description": "Pet size"
+                        "default": "medium"
                     },
-                    "vscode-pets.position": {
-                        "type": "string",
-                        "enum": [
-                            "panel",
-                            "explorer"
-                        ],
-                        "default": "explorer",
-                        "description": "VSCode pets webview position"
-                    },
-                    "vscode-pets.theme": {
+                    "elonPet.theme": {
                         "type": "string",
                         "enum": [
                             "none",
@@ -175,13 +148,7 @@
                             "castle",
                             "beach"
                         ],
-                        "default": "none",
-                        "description": "Background theme assets for your pets"
-                    },
-                    "vscode-pets.throwBallWithMouse": {
-                        "type": "boolean",
-                        "default": false,
-                        "description": "Throw ball with mouse"
+                        "default": "none"
                     }
                 }
             }

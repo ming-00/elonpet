@@ -1,8 +1,8 @@
 // This script will be run within the webview itself
 import { randomName } from '../common/names';
 import {
-    PetSize,
-    PetColor,
+    elonSize,
+    elonColor,
     PetType,
     Theme,
     ColorThemeKind,
@@ -32,47 +32,47 @@ declare global {
 export var allPets: IPetCollection = new PetCollection();
 var petCounter: number;
 
-function calculateBallRadius(size: PetSize): number {
-    if (size === PetSize.nano) {
+function calculateBallRadius(size: elonSize): number {
+    if (size === elonSize.nano) {
         return 2;
-    } else if (size === PetSize.medium) {
+    } else if (size === elonSize.medium) {
         return 4;
-    } else if (size === PetSize.large) {
+    } else if (size === elonSize.large) {
         return 8;
     } else {
         return 1; // Shrug
     }
 }
 
-function calculateFloor(size: PetSize, theme: Theme): number {
+function calculateFloor(size: elonSize, theme: Theme): number {
     switch (theme) {
         case Theme.forest:
             switch (size) {
-                case PetSize.medium:
+                case elonSize.medium:
                     return 40;
-                case PetSize.large:
+                case elonSize.large:
                     return 65;
-                case PetSize.nano:
+                case elonSize.nano:
                 default:
                     return 23;
             }
         case Theme.castle:
             switch (size) {
-                case PetSize.medium:
+                case elonSize.medium:
                     return 80;
-                case PetSize.large:
+                case elonSize.large:
                     return 120;
-                case PetSize.nano:
+                case elonSize.nano:
                 default:
                     return 45;
             }
         case Theme.beach:
             switch (size) {
-                case PetSize.medium:
+                case elonSize.medium:
                     return 80;
-                case PetSize.large:
+                case elonSize.large:
                     return 120;
-                case PetSize.nano:
+                case elonSize.nano:
                 default:
                     return 45;
             }
@@ -118,8 +118,8 @@ function startAnimations(
 function addPetToPanel(
     petType: PetType,
     basePetUri: string,
-    petColor: PetColor,
-    petSize: PetSize,
+    elonColor: elonColor,
+    elonSize: elonSize,
     left: number,
     bottom: number,
     floor: number,
@@ -139,16 +139,16 @@ function addPetToPanel(
     );
 
     var speechBubbleElement: HTMLDivElement = document.createElement('div');
-    speechBubbleElement.className = `bubble bubble-${petSize}`;
+    speechBubbleElement.className = `bubble bubble-${elonSize}`;
     speechBubbleElement.innerText = 'Hello!';
     (document.getElementById('petsContainer') as HTMLDivElement).appendChild(
         speechBubbleElement,
     );
 
-    const root = basePetUri + '/' + petType + '/' + petColor;
-    console.log('Creating new pet : ', petType, root, petColor, petSize, name);
+    const root = basePetUri + '/' + petType + '/' + elonColor;
+    console.log('Creating new pet : ', petType, root, elonColor, elonSize, name);
     try {
-        if (!availableColors().includes(petColor)) {
+        if (!availableColors().includes(elonColor)) {
             throw new InvalidPetException('Invalid color for pet type');
         }
         var newPet = createPet(
@@ -156,7 +156,7 @@ function addPetToPanel(
             petSpriteElement,
             collisionElement,
             speechBubbleElement,
-            petSize,
+            elonSize,
             left,
             bottom,
             root,
@@ -178,7 +178,7 @@ function addPetToPanel(
         collisionElement,
         speechBubbleElement,
         newPet,
-        petColor,
+        elonColor,
         petType,
     );
 }
@@ -193,7 +193,7 @@ export function saveState(stateApi?: VscodeStateApi) {
     allPets.pets.forEach((petItem) => {
         state.petStates?.push({
             petName: petItem.pet.name,
-            petColor: petItem.color,
+            elonColor: petItem.color,
             petType: petItem.type,
             petState: petItem.pet.getState(),
             petFriend: petItem.pet.friend?.name ?? undefined,
@@ -207,7 +207,7 @@ export function saveState(stateApi?: VscodeStateApi) {
 
 function recoverState(
     basePetUri: string,
-    petSize: PetSize,
+    elonSize: elonSize,
     floor: number,
     stateApi?: VscodeStateApi,
 ) {
@@ -236,8 +236,8 @@ function recoverState(
             var newPet = addPetToPanel(
                 PetType.elon,
                 basePetUri,
-                p.petColor ?? PetColor.white,
-                petSize,
+                p.elonColor ?? elonColor.classic,
+                elonSize,
                 parseInt(p.elLeft ?? '0'),
                 parseInt(p.elBottom ?? '0'),
                 floor,
@@ -295,13 +295,13 @@ export function petPanelApp(
     basePetUri: string,
     theme: Theme,
     themeKind: ColorThemeKind,
-    petColor: PetColor,
-    petSize: PetSize,
+    elonColor: elonColor,
+    elonSize: elonSize,
     petType: PetType,
     throwBallWithMouse: boolean,
     stateApi?: VscodeStateApi,
 ) {
-    const ballRadius: number = calculateBallRadius(petSize);
+    const ballRadius: number = calculateBallRadius(elonSize);
     var floor = 0;
     if (!stateApi) {
         stateApi = acquireVsCodeApi();
@@ -323,11 +323,11 @@ export function petPanelApp(
                 break;
         }
 
-        document.body.style.backgroundImage = `url('${basePetUri}/backgrounds/${theme}/background-${_themeKind}-${petSize}.png')`;
+        document.body.style.backgroundImage = `url('${basePetUri}/backgrounds/${theme}/background-${_themeKind}-${elonSize}.png')`;
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        foregroundEl!.style.backgroundImage = `url('${basePetUri}/backgrounds/${theme}/foreground-${_themeKind}-${petSize}.png')`;
+        foregroundEl!.style.backgroundImage = `url('${basePetUri}/backgrounds/${theme}/foreground-${_themeKind}-${elonSize}.png')`;
 
-        floor = calculateFloor(petSize, theme); // Themes have pets at a specified height from the ground
+        floor = calculateFloor(elonSize, theme); // Themes have pets at a specified height from the ground
     } else {
         document.body.style.backgroundImage = '';
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -470,7 +470,7 @@ export function petPanelApp(
 
     console.log(
         'Starting pet session',
-        petColor,
+        elonColor,
         basePetUri,
         petType,
         throwBallWithMouse,
@@ -485,8 +485,8 @@ export function petPanelApp(
             addPetToPanel(
                 petType,
                 basePetUri,
-                petColor,
-                petSize,
+                elonColor,
+                elonSize,
                 randomStartPosition(),
                 floor,
                 floor,
@@ -497,7 +497,7 @@ export function petPanelApp(
         saveState(stateApi);
     } else {
         console.log('Recovering state - ', state);
-        recoverState(basePetUri, petSize, floor, stateApi);
+        recoverState(basePetUri, elonSize, floor, stateApi);
     }
 
     initCanvas();
@@ -534,7 +534,7 @@ export function petPanelApp(
                         message.type,
                         basePetUri,
                         message.color,
-                        petSize,
+                        elonSize,
                         randomStartPosition(),
                         floor,
                         floor,

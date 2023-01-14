@@ -1,4 +1,4 @@
-import { PetColor, PetType } from '../common/types';
+import { elonColor, PetType } from '../common/types';
 
 export interface IPetType {
     nextFrame(): void;
@@ -43,7 +43,7 @@ export class PetInstanceState {
 export class PetElementState {
     petState: PetInstanceState | undefined;
     petType: PetType | undefined;
-    petColor: PetColor | undefined;
+    elonColor: elonColor | undefined;
     elLeft: string | undefined;
     elBottom: string | undefined;
     petName: string | undefined;

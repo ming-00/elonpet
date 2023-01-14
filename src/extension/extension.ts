@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
 import { ColorThemeKind } from 'vscode';
 import {
-    PetSize,
-    PetColor,
+    elonSize,
+    elonColor,
     PetType,
     ExtPosition,
     Theme,
@@ -20,10 +20,10 @@ const EXTRA_PETS_KEY = 'vscode-pets.extra-pets';
 const EXTRA_PETS_KEY_TYPES = EXTRA_PETS_KEY + '.types';
 const EXTRA_PETS_KEY_COLORS = EXTRA_PETS_KEY + '.colors';
 const EXTRA_PETS_KEY_NAMES = EXTRA_PETS_KEY + '.names';
-const DEFAULT_PET_SCALE = PetSize.large;
-const DEFAULT_COLOR = PetColor.white;
+const DEFAULT_PET_SCALE = elonSize.large;
+const DEFAULT_COLOR = elonColor.classic;
 const DEFAULT_PET_TYPE = PetType.elon;
-const DEFAULT_POSITION = ExtPosition.panel;
+const DEFAULT_POSITION = ExtPosition.explorer;
 const DEFAULT_THEME = Theme.none;
 
 class PetQuickPickItem implements vscode.QuickPickItem {
@@ -49,10 +49,10 @@ class PetQuickPickItem implements vscode.QuickPickItem {
 
 let webviewViewProvider: PetWebviewViewProvider;
 
-function getConfiguredSize(): PetSize {
+function getConfiguredSize(): elonSize {
     var size = vscode.workspace
-        .getConfiguration('vscode-pets')
-        .get<PetSize>('petSize', DEFAULT_PET_SCALE);
+        .getConfiguration('elonPet')
+        .get<elonSize>('elonSize', DEFAULT_PET_SCALE);
     if (ALL_SCALES.lastIndexOf(size) === -1) {
         size = DEFAULT_PET_SCALE;
     }
@@ -61,7 +61,7 @@ function getConfiguredSize(): PetSize {
 
 function getConfiguredTheme(): Theme {
     var theme = vscode.workspace
-        .getConfiguration('vscode-pets')
+        .getConfiguration('elonPet')
         .get<Theme>('theme', DEFAULT_THEME);
     if (ALL_THEMES.lastIndexOf(theme) === -1) {
         theme = DEFAULT_THEME;
@@ -74,15 +74,11 @@ function getConfiguredThemeKind(): ColorThemeKind {
 }
 
 function getConfigurationPosition() {
-    return vscode.workspace
-        .getConfiguration('vscode-pets')
-        .get<ExtPosition>('position', DEFAULT_POSITION);
+    return DEFAULT_POSITION;
 }
 
 function getThrowWithMouseConfiguration(): boolean {
-    return vscode.workspace
-        .getConfiguration('vscode-pets')
-        .get<boolean>('throwBallWithMouse', true);
+    return false;
 }
 
 function updatePanelThrowWithMouse(): void {
@@ -101,12 +97,12 @@ function updateExtensionPositionContext() {
 }
 
 export class PetSpecification {
-    color: PetColor;
+    color: elonColor;
     type: PetType;
-    size: PetSize;
+    size: elonSize;
     name: string;
 
-    constructor(color: PetColor, type: PetType, size: PetSize, name?: string) {
+    constructor(color: elonColor, type: PetType, size: elonSize, name?: string) {
         this.color = color;
         this.type = type;
         this.size = size;
@@ -119,13 +115,13 @@ export class PetSpecification {
 
     static fromConfiguration(): PetSpecification {
         var color = vscode.workspace
-            .getConfiguration('vscode-pets')
-            .get<PetColor>('petColor', DEFAULT_COLOR);
+            .getConfiguration('elonPet')
+            .get<elonColor>('elonStyle', DEFAULT_COLOR);
         if (ALL_COLORS.lastIndexOf(color) === -1) {
             color = DEFAULT_COLOR;
         }
         var type = vscode.workspace
-            .getConfiguration('vscode-pets')
+            .getConfiguration('elonPet')
             .get<PetType>('petType', DEFAULT_PET_TYPE);
         if (ALL_PETS.lastIndexOf(type) === -1) {
             type = DEFAULT_PET_TYPE;
@@ -136,13 +132,13 @@ export class PetSpecification {
 
     static collectionFromMemento(
         context: vscode.ExtensionContext,
-        size: PetSize,
+        size: elonSize,
     ): PetSpecification[] {
         var contextTypes = context.globalState.get<PetType[]>(
             EXTRA_PETS_KEY_TYPES,
             [],
         );
-        var contextColors = context.globalState.get<PetColor[]>(
+        var contextColors = context.globalState.get<elonColor[]>(
             EXTRA_PETS_KEY_COLORS,
             [],
         );
@@ -193,7 +189,7 @@ let spawnPetStatusBar: vscode.StatusBarItem;
 interface IPetInfo {
     type: PetType;
     name: string;
-    color: PetColor;
+    color: elonColor;
 }
 
 async function handleRemovePetMessage(
@@ -208,7 +204,7 @@ async function handleRemovePetMessage(
                 petList.push({
                     type: parts[0] as PetType,
                     name: parts[1],
-                    color: parts[2] as PetColor,
+                    color: parts[2] as elonColor,
                 });
             });
             break;
@@ -240,7 +236,7 @@ async function handleRemovePetMessage(
                             return new PetSpecification(
                                 item.color,
                                 item.type,
-                                PetSize.medium,
+                                elonSize.medium,
                                 item.name,
                             );
                         });
@@ -501,12 +497,12 @@ export function activate(context: vscode.ExtensionContext) {
                 if (selectedPetType === undefined) {
                     return;
                 }
-                var petColor: PetColor = DEFAULT_COLOR;
+                var elonColor: elonColor = DEFAULT_COLOR;
                 const possibleColors = availableColors();
 
                 if (possibleColors.length > 1) {
                     var selectedColor = await vscode.window.showQuickPick(
-                        localize.stringListAsQuickPickItemList<PetColor>(
+                        localize.stringListAsQuickPickItemList<elonColor>(
                             possibleColors,
                         ),
                         {
@@ -516,12 +512,12 @@ export function activate(context: vscode.ExtensionContext) {
                     if (selectedColor === undefined) {
                         return;
                     }
-                    petColor = selectedColor.value;
+                    elonColor = selectedColor.value;
                 } else {
-                    petColor = possibleColors[0];
+                    elonColor = possibleColors[0];
                 }
 
-                if (petColor === undefined) {
+                if (elonColor === undefined) {
                     return;
                 }
 
@@ -531,7 +527,7 @@ export function activate(context: vscode.ExtensionContext) {
                     value: randomName(),
                 });
                 const spec = new PetSpecification(
-                    petColor,
+                    elonColor,
                     selectedPetType.value,
                     getConfiguredSize(),
                     name,
@@ -582,17 +578,17 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.workspace.onDidChangeConfiguration(
             (e: vscode.ConfigurationChangeEvent): void => {
                 if (
-                    e.affectsConfiguration('vscode-pets.petColor') ||
-                    e.affectsConfiguration('vscode-pets.petType') ||
-                    e.affectsConfiguration('vscode-pets.petSize') ||
-                    e.affectsConfiguration('vscode-pets.theme') ||
+                    e.affectsConfiguration('elonPet.elonColor') ||
+                    e.affectsConfiguration('elonPet.petType') ||
+                    e.affectsConfiguration('elonPet.elonSize') ||
+                    e.affectsConfiguration('elonPet.theme') ||
                     e.affectsConfiguration('workbench.colorTheme')
                 ) {
                     const spec = PetSpecification.fromConfiguration();
                     const panel = getPetPanel();
                     if (panel) {
-                        panel.updatePetColor(spec.color);
-                        panel.updatePetSize(spec.size);
+                        panel.updateelonColor(spec.color);
+                        panel.updateelonSize(spec.size);
                         panel.updatePetType(spec.type);
                         panel.updateTheme(
                             getConfiguredTheme(),
@@ -602,11 +598,11 @@ export function activate(context: vscode.ExtensionContext) {
                     }
                 }
 
-                if (e.affectsConfiguration('vscode-pets.position')) {
+                if (e.affectsConfiguration('elonPet.position')) {
                     updateExtensionPositionContext();
                 }
 
-                if (e.affectsConfiguration('vscode-pets.throwBallWithMouse')) {
+                if (e.affectsConfiguration('elonPet.throwBallWithMouse')) {
                     updatePanelThrowWithMouse();
                 }
             },
@@ -671,9 +667,9 @@ interface IPetPanel {
     rollCall(): void;
     themeKind(): vscode.ColorThemeKind;
     throwBallWithMouse(): boolean;
-    updatePetColor(newColor: PetColor): void;
+    updateelonColor(newColor: elonColor): void;
     updatePetType(newType: PetType): void;
-    updatePetSize(newSize: PetSize): void;
+    updateelonSize(newSize: elonSize): void;
     updateTheme(newTheme: Theme, themeKind: vscode.ColorThemeKind): void;
     update(): void;
     setThrowWithMouse(newThrowWithMouse: boolean): void;
@@ -682,41 +678,41 @@ interface IPetPanel {
 class PetWebviewContainer implements IPetPanel {
     protected _extensionUri: vscode.Uri;
     protected _disposables: vscode.Disposable[] = [];
-    protected _petColor: PetColor;
+    protected _elonColor: elonColor;
     protected _petType: PetType;
-    protected _petSize: PetSize;
+    protected _elonSize: elonSize;
     protected _theme: Theme;
     protected _themeKind: vscode.ColorThemeKind;
     protected _throwBallWithMouse: boolean;
 
     constructor(
         extensionUri: vscode.Uri,
-        color: PetColor,
+        color: elonColor,
         type: PetType,
-        size: PetSize,
+        size: elonSize,
         theme: Theme,
         themeKind: ColorThemeKind,
         throwBallWithMouse: boolean,
     ) {
         this._extensionUri = extensionUri;
-        this._petColor = color;
+        this._elonColor = color;
         this._petType = type;
-        this._petSize = size;
+        this._elonSize = size;
         this._theme = theme;
         this._themeKind = themeKind;
         this._throwBallWithMouse = throwBallWithMouse;
     }
 
-    public petColor(): PetColor {
-        return normalizeColor(this._petColor);
+    public elonColor(): elonColor {
+        return normalizeColor(this._elonColor);
     }
 
     public petType(): PetType {
         return this._petType;
     }
 
-    public petSize(): PetSize {
-        return this._petSize;
+    public elonSize(): elonSize {
+        return this._elonSize;
     }
 
     public theme(): Theme {
@@ -731,16 +727,16 @@ class PetWebviewContainer implements IPetPanel {
         return this._throwBallWithMouse;
     }
 
-    public updatePetColor(newColor: PetColor) {
-        this._petColor = newColor;
+    public updateelonColor(newColor: elonColor) {
+        this._elonColor = newColor;
     }
 
     public updatePetType(newType: PetType) {
         this._petType = newType;
     }
 
-    public updatePetSize(newSize: PetSize) {
-        this._petSize = newSize;
+    public updateelonSize(newSize: elonSize) {
+        this._elonSize = newSize;
     }
 
     public updateTheme(newTheme: Theme, themeKind: vscode.ColorThemeKind) {
@@ -866,14 +862,14 @@ class PetWebviewContainer implements IPetPanel {
                     src: url('${silkScreenFontPath}') format('truetype');
                 }
                 </style>
-				<title>Elontime</title>
+				<title>ElonPet</title>
 			</head>
 			<body>
 				<canvas id="petCanvas"></canvas>
 				<div id="petsContainer"></div>
 				<div id="foreground"></div>	
 				<script nonce="${nonce}" src="${scriptUri}"></script>
-				<script nonce="${nonce}">petApp.petPanelApp("${basePetUri}", "${this.theme()}", ${this.themeKind()}, "${this.petColor()}", "${this.petSize()}", "${this.petType()}", ${this.throwBallWithMouse()});</script>
+				<script nonce="${nonce}">petApp.petPanelApp("${basePetUri}", "${this.theme()}", ${this.themeKind()}, "${this.elonColor()}", "${this.elonSize()}", "${this.petType()}", ${this.throwBallWithMouse()});</script>
 			</body>
 			</html>`;
     }
@@ -905,9 +901,9 @@ class PetPanel extends PetWebviewContainer implements IPetPanel {
 
     public static createOrShow(
         extensionUri: vscode.Uri,
-        petColor: PetColor,
+        elonColor: elonColor,
         petType: PetType,
-        petSize: PetSize,
+        elonSize: elonSize,
         theme: Theme,
         themeKind: ColorThemeKind,
         throwBallWithMouse: boolean,
@@ -918,16 +914,16 @@ class PetPanel extends PetWebviewContainer implements IPetPanel {
         // If we already have a panel, show it.
         if (PetPanel.currentPanel) {
             if (
-                petColor === PetPanel.currentPanel.petColor() &&
+                elonColor === PetPanel.currentPanel.elonColor() &&
                 petType === PetPanel.currentPanel.petType() &&
-                petSize === PetPanel.currentPanel.petSize()
+                elonSize === PetPanel.currentPanel.elonSize()
             ) {
                 PetPanel.currentPanel._panel.reveal(column);
                 return;
             } else {
-                PetPanel.currentPanel.updatePetColor(petColor);
+                PetPanel.currentPanel.updateelonColor(elonColor);
                 PetPanel.currentPanel.updatePetType(petType);
-                PetPanel.currentPanel.updatePetSize(petSize);
+                PetPanel.currentPanel.updateelonSize(elonSize);
                 PetPanel.currentPanel.update();
             }
         }
@@ -943,9 +939,9 @@ class PetPanel extends PetWebviewContainer implements IPetPanel {
         PetPanel.currentPanel = new PetPanel(
             panel,
             extensionUri,
-            petColor,
+            elonColor,
             petType,
-            petSize,
+            elonSize,
             theme,
             themeKind,
             throwBallWithMouse,
@@ -971,9 +967,9 @@ class PetPanel extends PetWebviewContainer implements IPetPanel {
     public static revive(
         panel: vscode.WebviewPanel,
         extensionUri: vscode.Uri,
-        petColor: PetColor,
+        elonColor: elonColor,
         petType: PetType,
-        petSize: PetSize,
+        elonSize: elonSize,
         theme: Theme,
         themeKind: ColorThemeKind,
         throwBallWithMouse: boolean,
@@ -981,9 +977,9 @@ class PetPanel extends PetWebviewContainer implements IPetPanel {
         PetPanel.currentPanel = new PetPanel(
             panel,
             extensionUri,
-            petColor,
+            elonColor,
             petType,
-            petSize,
+            elonSize,
             theme,
             themeKind,
             throwBallWithMouse,
@@ -993,9 +989,9 @@ class PetPanel extends PetWebviewContainer implements IPetPanel {
     private constructor(
         panel: vscode.WebviewPanel,
         extensionUri: vscode.Uri,
-        color: PetColor,
+        color: elonColor,
         type: PetType,
-        size: PetSize,
+        size: elonSize,
         theme: Theme,
         themeKind: ColorThemeKind,
         throwBallWithMouse: boolean,

@@ -1,4 +1,4 @@
-import { PetColor, PetSize, PetSpeed, PetType } from '../common/types';
+import { elonColor, elonSize, PetSpeed, PetType } from '../common/types';
 import { Elon } from './pets/elon';
 import { IPetType } from './states';
 
@@ -7,13 +7,13 @@ export class PetElement {
     collision: HTMLDivElement;
     speech: HTMLDivElement;
     pet: IPetType;
-    color: PetColor;
+    color: elonColor;
     type: PetType;
     remove() {
         this.el.remove();
         this.collision.remove();
         this.speech.remove();
-        this.color = PetColor.null;
+        this.color = elonColor.null;
         this.type = PetType.null;
     }
 
@@ -22,7 +22,7 @@ export class PetElement {
         collision: HTMLDivElement,
         speech: HTMLDivElement,
         pet: IPetType,
-        color: PetColor,
+        color: elonColor,
         type: PetType,
     ) {
         this.el = el;
@@ -136,7 +136,7 @@ export function createPet(
     el: HTMLImageElement,
     collision: HTMLDivElement,
     speech: HTMLDivElement,
-    size: PetSize,
+    size: elonSize,
     left: number,
     bottom: number,
     petRoot: string,
@@ -151,7 +151,7 @@ export function createPet(
         HTMLImageElement,
         HTMLDivElement,
         HTMLDivElement,
-        PetSize,
+        elonSize,
         number,
         number,
         string,
@@ -162,20 +162,20 @@ export function createPet(
         return new Elon(...standardPetArguments, PetSpeed.normal);
 }
 
-export function availableColors(): PetColor[] {
+export function availableColors(): elonColor[] {
         return Elon.possibleColors;
 }
 
 /**
  * Some pets can only have certain colors, this makes sure they haven't been misconfigured.
- * @param petColor
+ * @param elonColor
  * @param petType
  * @returns normalized color
  */
-export function normalizeColor(petColor: PetColor): PetColor {
+export function normalizeColor(elonColor: elonColor): elonColor {
     const colors = availableColors();
-    if (colors.includes(petColor)) {
-        return petColor;
+    if (colors.includes(elonColor)) {
+        return elonColor;
     } else {
         return colors[0];
     }

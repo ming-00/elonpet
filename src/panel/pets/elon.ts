@@ -1,10 +1,10 @@
-import { PetColor } from '../../common/types';
+import { elonColor } from '../../common/types';
 import { BasePetType } from '../basepettype';
 import { States } from '../states';
 
 export class Elon extends BasePetType {
     label = 'elon';
-    static possibleColors = [PetColor.white];
+    static possibleColors = [elonColor.classic, elonColor.wario];
     sequence = {
         startingState: States.sitIdle,
         sequenceStates: [
@@ -61,9 +61,10 @@ export class Elon extends BasePetType {
 }
 
 export const ELON_NAMES: ReadonlyArray<string> = [
-    'Elon',
     'Elongator',
     'Elmo',
     'Space Karen',
-    'Technoking'
+    'Technoking',
+    'Elongated Muskrat',
+    'Chief Twit'
 ];

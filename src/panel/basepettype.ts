@@ -1,4 +1,4 @@
-import { PetColor, PetSize, PetSpeed } from '../common/types';
+import { elonColor, elonSize, PetSpeed } from '../common/types';
 import { IPetType } from './states';
 import { ISequenceTree } from './sequences';
 import {
@@ -22,7 +22,7 @@ export abstract class BasePetType implements IPetType {
         startingState: States.sitIdle,
         sequenceStates: [],
     };
-    static possibleColors: PetColor[];
+    static possibleColors: elonColor[];
     currentState: IState;
     currentStateEnum: States;
     holdState: IState | undefined;
@@ -37,13 +37,13 @@ export abstract class BasePetType implements IPetType {
     _friend: IPetType | undefined;
     private _name: string;
     private _speed: number;
-    private _size: PetSize;
+    private _size: elonSize;
 
     constructor(
         spriteElement: HTMLImageElement,
         collisionElement: HTMLDivElement,
         speechElement: HTMLDivElement,
-        size: PetSize,
+        size: elonSize,
         left: number,
         bottom: number,
         petRoot: string,
@@ -70,20 +70,20 @@ export abstract class BasePetType implements IPetType {
         (this.constructor as any).count += 1;
     }
 
-    initSprite(petSize: PetSize, left: number, bottom: number) {
+    initSprite(elonSize: elonSize, left: number, bottom: number) {
         this.el.style.left = `${left}px`;
         this.el.style.bottom = `${bottom}px`;
         this.el.style.width = 'auto';
         this.el.style.height = 'auto';
-        this.el.style.maxWidth = `${this.calculateSpriteWidth(petSize)}px`;
-        this.el.style.maxHeight = `${this.calculateSpriteWidth(petSize)}px`;
+        this.el.style.maxWidth = `${this.calculateSpriteWidth(elonSize)}px`;
+        this.el.style.maxHeight = `${this.calculateSpriteWidth(elonSize)}px`;
         this.collision.style.left = `${left}px`;
         this.collision.style.bottom = `${bottom}px`;
-        this.collision.style.width = `${this.calculateSpriteWidth(petSize)}px`;
-        this.collision.style.height = `${this.calculateSpriteWidth(petSize)}px`;
+        this.collision.style.width = `${this.calculateSpriteWidth(elonSize)}px`;
+        this.collision.style.height = `${this.calculateSpriteWidth(elonSize)}px`;
         this.speech.style.left = `${left}px`;
         this.speech.style.bottom = `${
-            bottom + this.calculateSpriteWidth(petSize)
+            bottom + this.calculateSpriteWidth(elonSize)
         }px`;
         this.hideSpeechBubble();
     }
@@ -105,12 +105,12 @@ export abstract class BasePetType implements IPetType {
         }px`;
     }
 
-    calculateSpriteWidth(size: PetSize): number {
-        if (size === PetSize.nano) {
+    calculateSpriteWidth(size: elonSize): number {
+        if (size === elonSize.nano) {
             return 30;
-        } else if (size === PetSize.medium) {
+        } else if (size === elonSize.medium) {
             return 55;
-        } else if (size === PetSize.large) {
+        } else if (size === elonSize.large) {
             return 110;
         } else {
             return 30; // Shrug
