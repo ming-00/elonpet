@@ -5,12 +5,12 @@ Congrats on installing joy! Enjoy interacting with these cute pixelated pets.
 Read below to get a full understanding of this extension. 
 Not convinced? Watch our extension spotlight on `Visual Studio Code <https://www.youtube.com/watch?v=aE6Ifj_KstI>`_.
 
-Start pet coding session to show your pet
+Start ElonPet session to show your pet
 -----------------------------------------
 
 Open the command palette with `Ctrl+Shift+P` on Windows/Linux or `Cmd(⌘)+Shift+P` on MacOS.  
 
-Run the "Start pet coding session" command (`vscode-pets.start`)
+Run the "Start ElonPet session" command (`vscode-pets.start`)
 
 Once you have the pet panel open, you can:
 

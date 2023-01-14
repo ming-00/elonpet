@@ -16,7 +16,7 @@ import { randomName } from '../common/names';
 import * as localize from '../common/localize';
 import { availableColors, normalizeColor } from '../panel/pets';
 
-const EXTRA_PETS_KEY = 'vscode-pets.extra-pets';
+const EXTRA_PETS_KEY = 'elonPet.extra-pets';
 const EXTRA_PETS_KEY_TYPES = EXTRA_PETS_KEY + '.types';
 const EXTRA_PETS_KEY_COLORS = EXTRA_PETS_KEY + '.colors';
 const EXTRA_PETS_KEY_NAMES = EXTRA_PETS_KEY + '.names';
@@ -91,7 +91,7 @@ function updatePanelThrowWithMouse(): void {
 function updateExtensionPositionContext() {
     vscode.commands.executeCommand(
         'setContext',
-        'vscode-pets.position',
+        'elonPet.position',
         getConfigurationPosition(),
     );
 }
@@ -272,7 +272,7 @@ function getWebview(): vscode.Webview | undefined {
 
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(
-        vscode.commands.registerCommand('vscode-pets.start', () => {
+        vscode.commands.registerCommand('elonPet.start', () => {
             if (
                 getConfigurationPosition() === ExtPosition.explorer &&
                 webviewViewProvider
@@ -310,14 +310,14 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.StatusBarAlignment.Right,
         100,
     );
-    petPlaygroundStatusBar.command = 'vscode-pets.start';
+    petPlaygroundStatusBar.command = 'elonPet.start';
     context.subscriptions.push(petPlaygroundStatusBar);
 
     spawnPetStatusBar = vscode.window.createStatusBarItem(
         vscode.StatusBarAlignment.Right,
         100,
     );
-    spawnPetStatusBar.command = 'vscode-pets.spawn-pet';
+    spawnPetStatusBar.command = 'elonPet.spawn-pet';
     context.subscriptions.push(spawnPetStatusBar);
 
     context.subscriptions.push(
@@ -353,7 +353,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('vscode-pets.throw-ball', () => {
+        vscode.commands.registerCommand('elonPet.throw-ball', () => {
             const panel = getPetPanel();
             if (panel !== undefined) {
                 panel.throwBall();
@@ -362,7 +362,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('vscode-pets.delete-pet', async () => {
+        vscode.commands.registerCommand('elonPet.delete-pet', async () => {
             const panel = getPetPanel();
             if (panel !== undefined) {
                 panel.listPets();
@@ -377,7 +377,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('vscode-pets.roll-call', async () => {
+        vscode.commands.registerCommand('elonPet.roll-call', async () => {
             const panel = getPetPanel();
             if (panel !== undefined) {
                 panel.rollCall();
@@ -389,7 +389,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(
         vscode.commands.registerCommand(
-            'vscode-pets.export-pet-list',
+            'elonPet.export-pet-list',
             async () => {
                 const pets = PetSpecification.collectionFromMemento(
                     context,
@@ -426,7 +426,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(
         vscode.commands.registerCommand(
-            'vscode-pets.import-pet-list',
+            'elonPet.import-pet-list',
             async () => {
                 const options: vscode.OpenDialogOptions = {
                     canSelectMany: false,
@@ -485,7 +485,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('vscode-pets.spawn-pet', async () => {
+        vscode.commands.registerCommand('elonPet.spawn-pet', async () => {
             const panel = getPetPanel();
             if (panel) {
                 const selectedPetType = await vscode.window.showQuickPick(
@@ -557,7 +557,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('vscode-pets.remove-all-pets', () => {
+        vscode.commands.registerCommand('elonPet.remove-all-pets', () => {
             const panel = getPetPanel();
             if (panel !== undefined) {
                 panel.resetPets();
@@ -566,7 +566,7 @@ export function activate(context: vscode.ExtensionContext) {
                 createPetPlayground(context);
                 vscode.window.showInformationMessage(
                     vscode.l10n.t(
-                        "A Pet Playground has been created. You can now use the 'Remove All Pets' Command to remove all pets.",
+                        "A Pet Playground has been created. You can now use the 'Remove all Elons' Command to Remove all Elons.",
                     ),
                 );
             }
@@ -887,7 +887,7 @@ function handleWebviewMessage(message: WebviewMessage) {
 }
 
 /**
- * Manages pet coding webview panels
+ * Manages ElonPet webview panels
  */
 class PetPanel extends PetWebviewContainer implements IPetPanel {
     /**

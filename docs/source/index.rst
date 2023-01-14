@@ -38,7 +38,7 @@ Alternatively, with VS Code open, launch VS Code Quick Open (`Ctrl+P` on Windows
 Getting Started
 ---------------
 
-Launch VS Code Command Palette (`Ctrl+Shift+P` on Windows/Linux or `Cmd(⌘)+Shift+P` on MacOS, then type `pets` and select `Pets: Start Pet Coding Session`.
+Launch VS Code Command Palette (`Ctrl+Shift+P` on Windows/Linux or `Cmd(⌘)+Shift+P` on MacOS, then type `pets` and select `Pets: Start ElonPet Session`.
 
 .. image:: _static/start_pet_coding.png
    :alt: Start screenshot

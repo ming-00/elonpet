@@ -9,10 +9,10 @@
     "l10n": "./l10n",
     "repository": {
         "type": "github",
-        "url": "https://github.com/tonybaloney/vscode-pets"
+        "url": "https://github.com/tonybaloney/elonPet"
     },
-    "homepage": "https://tonybaloney.github.io/vscode-pets",
-    "bugs": "https://github.com/tonybaloney/vscode-pets/issues",
+    "homepage": "https://tonybaloney.github.io/elonPet",
+    "bugs": "https://github.com/tonybaloney/elonPet/issues",
     "publisher": "tonybaloney",
     "categories": [
         "Other"
@@ -29,13 +29,13 @@
     "license": "MIT",
     "icon": "icon.png",
     "activationEvents": [
-        "onCommand:vscode-pets.start",
-        "onCommand:vscode-pets.spawn-pet",
-        "onCommand:vscode-pets.delete-pet",
-        "onCommand:vscode-pets.remove-all-pets",
-        "onCommand:vscode-pets.roll-call",
-        "onCommand:vscode-pets.export-pet-list",
-        "onCommand:vscode-pets.import-pet-list",
+        "onCommand:elonPet.start",
+        "onCommand:elonPet.spawn-pet",
+        "onCommand:elonPet.delete-pet",
+        "onCommand:elonPet.remove-all-pets",
+        "onCommand:elonPet.roll-call",
+        "onCommand:elonPet.export-pet-list",
+        "onCommand:elonPet.import-pet-list",
         "onWebviewPanel:petCoding",
         "onView:explorer",
         "onView:petsView",
@@ -50,7 +50,7 @@
                     "type": "webview",
                     "id": "petsView",
                     "name": "ElonPet",
-                    "when": "vscode-pets.position == 'explorer'",
+                    "when": "elonPet.position == 'explorer'",
                     "icon": "media/dog.svg"
                 }
             ]
@@ -58,12 +58,12 @@
         "menus": {
             "view/title": [
                 {
-                    "command": "vscode-pets.spawn-pet",
+                    "command": "elonPet.spawn-pet",
                     "when": "view == petsView",
                     "group": "navigation@1"
                 },
                 {
-                    "command": "vscode-pets.delete-pet",
+                    "command": "elonPet.delete-pet",
                     "when": "view == petsView",
                     "group": "navigation@3"
                 }
@@ -71,52 +71,52 @@
         },
         "commands": [
             {
-                "command": "vscode-pets.start",
-                "title": "Start pet coding session",
-                "category": "Pet Coding",
+                "command": "elonPet.start",
+                "title": "Start ElonPet session",
+                "category": "ElonPet",
                 "icon": "media/dog.svg"
             },
             {
-                "command": "vscode-pets.export-pet-list",
-                "title": "Export pet list",
-                "category": "Pet Coding"
+                "command": "elonPet.export-pet-list",
+                "title": "Export elon list",
+                "category": "ElonPet"
             },
             {
-                "command": "vscode-pets.import-pet-list",
-                "title": "Import pet list",
-                "category": "Pet Coding"
+                "command": "elonPet.import-pet-list",
+                "title": "Import Elon list",
+                "category": "ElonPet"
             },
             {
-                "command": "vscode-pets.spawn-pet",
+                "command": "elonPet.spawn-pet",
                 "title": "Spawn another Elon",
-                "category": "Pet Coding",
+                "category": "ElonPet",
                 "icon": {
                     "dark": "media/icon/dark-add.svg",
                     "light": "media/icon/light-add.svg"
                 }
             },
             {
-                "command": "vscode-pets.delete-pet",
+                "command": "elonPet.delete-pet",
                 "title": "Remove an Elon",
-                "category": "Pet Coding",
+                "category": "ElonPet",
                 "icon": {
                     "dark": "media/icon/dark-trash.svg",
                     "light": "media/icon/light-trash.svg"
                 }
             },
             {
-                "command": "vscode-pets.remove-all-pets",
-                "title": "Remove all pets",
-                "category": "Pet Coding",
+                "command": "elonPet.remove-all-pets",
+                "title": "Remove all Elons",
+                "category": "ElonPet",
                 "icon": {
                     "dark": "media/icon/dark-trash.svg",
                     "light": "media/icon/light-trash.svg"
                 }
             },
             {
-                "command": "vscode-pets.roll-call",
+                "command": "elonPet.roll-call",
                 "title": "Roll-call",
-                "category": "Pet Coding"
+                "category": "ElonPet"
             }
         ],
         "configuration": [

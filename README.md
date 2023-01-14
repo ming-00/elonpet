@@ -40,7 +40,7 @@ Congrats on installing joy! Enjoy interacting with these cute pixelated pets. Re
 
 After installing, open the command palette with `Ctrl+Shift+P` on Windows/Linux or `Cmd(⌘)+Shift+P` on MacOS.  
 
-Run the "Start pet coding session" command (`vscode-pets.start`) to see a cat in VS Code:
+Run the "Start ElonPet session" command (`vscode-pets.start`) to see a cat in VS Code:
 
 ![Default view](https://github.com/tonybaloney/vscode-pets/raw/master/docs/source/_static/pet-in-default-explorer.png)
 
