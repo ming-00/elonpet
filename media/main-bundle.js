@@ -189,7 +189,7 @@ class BasePetType {
         this.holdStateEnum = this.currentStateEnum;
         this.currentStateEnum = "swipe" /* States.swipe */;
         this.currentState = (0, states_1.resolveState)(this.currentStateEnum, this);
-        this.showSpeechBubble('👋');
+        this.showSpeechBubble('Hello');
     }
     chase(ballState, canvas) {
         this.currentStateEnum = "chase" /* States.chase */;
@@ -328,36 +328,6 @@ function calculateBallRadius(size) {
 }
 function calculateFloor(size, theme) {
     switch (theme) {
-        case "forest" /* Theme.forest */:
-            switch (size) {
-                case "medium" /* elonSize.medium */:
-                    return 40;
-                case "large" /* elonSize.large */:
-                    return 65;
-                case "nano" /* elonSize.nano */:
-                default:
-                    return 23;
-            }
-        case "castle" /* Theme.castle */:
-            switch (size) {
-                case "medium" /* elonSize.medium */:
-                    return 80;
-                case "large" /* elonSize.large */:
-                    return 120;
-                case "nano" /* elonSize.nano */:
-                default:
-                    return 45;
-            }
-        case "beach" /* Theme.beach */:
-            switch (size) {
-                case "medium" /* elonSize.medium */:
-                    return 80;
-                case "large" /* elonSize.large */:
-                    return 120;
-                case "nano" /* elonSize.nano */:
-                default:
-                    return 45;
-            }
         case "twitter" /* Theme.twitter */:
             switch (size) {
                 case "medium" /* elonSize.medium */:
@@ -920,6 +890,7 @@ exports.normalizeColor = normalizeColor;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ELON_NAMES = exports.Elon = void 0;
 const basepettype_1 = __webpack_require__(/*! ../basepettype */ "./src/panel/basepettype.ts");
+const states_1 = __webpack_require__(/*! ../states */ "./src/panel/states.ts");
 class Elon extends basepettype_1.BasePetType {
     label = 'elon';
     static possibleColors = ["classic" /* elonColor.classic */, "wario" /* elonColor.wario */];
@@ -975,6 +946,23 @@ class Elon extends basepettype_1.BasePetType {
     }
     get hello() {
         return ` That's my lesson for taking a vacation: Vacation will kill you.`;
+    }
+    swipe() {
+        if (this.currentStateEnum === "swipe" /* States.swipe */) {
+            return;
+        }
+        this.holdState = this.currentState;
+        this.holdStateEnum = this.currentStateEnum;
+        this.currentStateEnum = "swipe" /* States.swipe */;
+        this.currentState = (0, states_1.resolveState)(this.currentStateEnum, this);
+        const quotes = [
+            "He's FIRED.",
+            "Let that sink in.",
+            "Due to inflation 420 has gone up by 69.",
+            "I put the art in fart.",
+            "Pronouns suck."
+        ];
+        this.showSpeechBubble(quotes[Math.floor(Math.random() * quotes.length)]);
     }
 }
 exports.Elon = Elon;
