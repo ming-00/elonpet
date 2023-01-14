@@ -16,7 +16,7 @@ import { randomName } from '../common/names';
 import * as localize from '../common/localize';
 import { availableColors, normalizeColor } from '../panel/pets';
 
-let good_quotes: string[] = [
+let quotes: string[] = [
     'Any sufficiently advanced magic is indistinguishable from technology',
     'Don’t kill what you hate, Save what you love',
     'Should I step down as head of Twitter? I will abide by the results of this poll.',
@@ -28,10 +28,7 @@ let good_quotes: string[] = [
     'I made an offer.',
     'Let that sink in...',
     'I was always crazy on Twitter fyi.',
-    'And...we just hit another all-time high in Twitter usage lol'
-];
-
-let bad_quotes: string[] = [
+    'And...we just hit another all-time high in Twitter usage lol',
     'Time is the ultimate currency',
     'thinking of quitting my jobs & becoming an influencer full-time wdyt',
     'Technically, alcohol is a solution',
@@ -311,25 +308,15 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable1);
 
     const createTweet = () => {
-        const numErrors = getNumErrors();
-        let randomQuote = '';
-        if (numErrors > 5) {
-            // chose a random element from ELON_QUOTES_BAD
-            const randomIndex = Math.floor(Math.random() * bad_quotes.length);
-            randomQuote = bad_quotes[randomIndex];
-        } else {
-            // chose a random element from ELON_QUOTES_GOOD
-            const randomIndex = Math.floor(Math.random() * good_quotes.length);
-            randomQuote = good_quotes[randomIndex];
-        }
-        return numErrors + ' errors!! ' + randomQuote;
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        return quotes[randomIndex];
     };
 
     const tweety = vscode.commands.registerCommand(
         'elonPet.tweet', () => {
             const tweet = createTweet();
             vscode.window.showInformationMessage(
-                tweet
+                tweet,
             );
         }
     );
