@@ -958,9 +958,7 @@ class Elon extends basepettype_1.BasePetType {
         const quotes = [
             "He's FIRED.",
             "Let that sink in.",
-            "Due to inflation 420 has gone up by 69.",
-            "I put the art in fart.",
-            "Pronouns suck."
+            "Due to inflation 420 has gone up by 69."
         ];
         this.showSpeechBubble(quotes[Math.floor(Math.random() * quotes.length)]);
     }
