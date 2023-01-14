@@ -16,32 +16,20 @@ import { randomName } from '../common/names';
 import * as localize from '../common/localize';
 import { availableColors, normalizeColor } from '../panel/pets';
 
-let good_quotes: string[] = [
-    'Any sufficiently advanced magic is indistinguishable from technology',
-    'Don’t kill what you hate, Save what you love',
-    'Should I step down as head of Twitter? I will abide by the results of this poll.',
-    'Wait, if I Tweet does that count as work?',
-    'Optimism, pessimism, f**k that; we\'re going to make it happen. As God is my bloody witness, I\'m hell-bent on making it work.',
-    'Failure is an option here. If things are not failing, you are not innovating enough.',
-    'Engineering is the closest thing to magic that exists in the world.',
-    'For my part, I will never give up, and I mean never.',
+const happy_quotes: string[] = [
     'I made an offer.',
-    'Let that sink in...',
-    'I was always crazy on Twitter fyi.',
+    'We are going to make it happen!',
     'And...we just hit another all-time high in Twitter usage lol'
-];
+]
 
-let bad_quotes: string[] = [
-    'Time is the ultimate currency',
-    'thinking of quitting my jobs & becoming an influencer full-time wdyt',
-    'Technically, alcohol is a solution',
-    'I admit to judging books by their cover',
-    'Sometimes it’s just better to make pizza at home',
+const angry_quotes: string[] = [
+    'You are fired.',
     'One word: Doge.',
-    'That\'s my lesson for taking a vacation: Vacation will kill you.',
-    'Patience is a virtue, and I\'m learning patience. It\'s a tough lesson.',
-    'You are fired.'
-];
+    'Sometimes it’s just better to make pizza at home',
+    'Technically, alcohol is a solution'
+]
+
+let errCount = 0;
 
 const EXTRA_PETS_KEY = 'elonPet.extra-pets';
 const EXTRA_PETS_KEY_TYPES = EXTRA_PETS_KEY + '.types';
@@ -299,6 +287,8 @@ function getWebview(): vscode.Webview | undefined {
 }
 
 export function activate(context: vscode.ExtensionContext) {
+
+    handleErrorResponse();
     
     const disposable1 = vscode.commands.registerCommand(
         'elonPet.hi', () => {
@@ -310,29 +300,29 @@ export function activate(context: vscode.ExtensionContext) {
     
     context.subscriptions.push(disposable1);
 
-    const createTweet = () => {
-        const numErrors = getNumErrors();
-        let randomQuote = '';
-        if (numErrors > 5) {
-            // chose a random element from ELON_QUOTES_BAD
-            const randomIndex = Math.floor(Math.random() * bad_quotes.length);
-            randomQuote = bad_quotes[randomIndex];
-        } else {
-            // chose a random element from ELON_QUOTES_GOOD
-            const randomIndex = Math.floor(Math.random() * good_quotes.length);
-            randomQuote = good_quotes[randomIndex];
-        }
-        return numErrors + ' errors!! ' + randomQuote;
-    };
+    // const createTweet = () => {
+    //     const numErrors = getNumErrors();
+    //     let randomQuote = '';
+    //     if (numErrors > 5) {
+    //         // chose a random element from ELON_QUOTES_BAD
+    //         const randomIndex = Math.floor(Math.random() * bad_quotes.length);
+    //         randomQuote = bad_quotes[randomIndex];
+    //     } else {
+    //         // chose a random element from ELON_QUOTES_GOOD
+    //         const randomIndex = Math.floor(Math.random() * good_quotes.length);
+    //         randomQuote = good_quotes[randomIndex];
+    //     }
+    //     return numErrors + ' errors!! ' + randomQuote;
+    // };
 
-    const tweety = vscode.commands.registerCommand(
-        'elonPet.tweet', () => {
-            const tweet = createTweet();
-            vscode.window.showInformationMessage(
-                tweet
-            );
-        }
-    );
+    // const tweety = vscode.commands.registerCommand(
+    //     'elonPet.tweet', () => {
+    //         const tweet = createTweet();
+    //         vscode.window.showInformationMessage(
+    //             tweet
+    //         );
+    //     }
+    // );
 
     // assign a random number between 20 and 100 to the variable seconds
     const seconds = 10;
@@ -341,7 +331,7 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.commands.executeCommand('elonPet.tweet');
     }, seconds * 1000);
 
-    context.subscriptions.push(tweety);
+    // context.subscriptions.push(tweety);
 
     context.subscriptions.push(
         vscode.commands.registerCommand('elonPet.start', () => {
@@ -1277,4 +1267,25 @@ function getNumErrors(): number {
     }
   
     return numErrors;
+}
+
+function handleErrorResponse() {
+    setInterval(() => {
+        const currErrCount = getNumErrors();
+        if (currErrCount > errCount) {
+            errCount = currErrCount;
+            const randomIndex = Math.floor(Math.random() * angry_quotes.length);
+            const randomQuote = angry_quotes[randomIndex];
+            vscode.window.showWarningMessage(
+                errCount.toString() + " errors! You made another error! "+ randomQuote
+            );
+        } else if (currErrCount < errCount) {
+            errCount = currErrCount;
+            const randomIndex = Math.floor(Math.random() * happy_quotes.length);
+            const randomQuote = angry_quotes[randomIndex];
+            vscode.window.showInformationMessage(
+                errCount.toString() + " errors. You fixed an error! " + randomQuote
+            );
+        }
+      }, 1000);
 }
