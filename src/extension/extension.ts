@@ -301,15 +301,15 @@ export function activate(context: vscode.ExtensionContext) {
 
     const tweety = vscode.commands.registerCommand(
         'elonPet.tweet', () => {
-            // const tweet = createTweet();
+            const tweet = createTweet();
             vscode.window.showInformationMessage(
-                'hello'
+                tweet
             );
         }
     );
 
     // assign a random number between 20 and 100 to the variable seconds
-    const seconds = Math.floor(Math.random() * 80) + 20;
+    const seconds = 3;
 
     setInterval(() => {
         vscode.commands.executeCommand('elonPet.tweet');
