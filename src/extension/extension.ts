@@ -321,7 +321,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     const createTweet = () => {
         const randomIndex = Math.floor(Math.random() * quotes.length);
-        return "@elonmusk: " + quotes[randomIndex];
+        return "@elon: " + quotes[randomIndex];
     };
 
     const createReport = () => {
