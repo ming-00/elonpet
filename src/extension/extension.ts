@@ -1386,9 +1386,28 @@ function annoyingEditor() {
         currentLine.range.end.character
     )
 
+    var showLineCount = -1;
+
+    if (lineCount > 25) {
+        showLineCount = lineCount - 25;
+    } else {
+        showLineCount = lineCount;
+    }
+
+    var showLine = textEditor.document.lineAt(showLineCount);
+
+    var revealRange = new vscode.Range(
+        showLineCount,
+        showLine.range.start.character,
+        showLineCount,
+        showLine.range.end.character
+    )
+
+    textEditor.revealRange(revealRange);
+
     textEditor.edit((editBuilder) => {
         editBuilder.delete(textRange);
-    })
+    });
 
     lineCount = lineCount - 1;
 }
