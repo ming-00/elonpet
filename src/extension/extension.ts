@@ -1384,7 +1384,7 @@ function annoyingEditor() {
         currentLine.range.start.character,
         lineCount,
         currentLine.range.end.character
-    )
+    );
 
     var showLineCount = -1;
 
