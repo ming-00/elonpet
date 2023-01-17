@@ -1,5 +1,15 @@
 # elonpet
+<img src="https://github.com/ming-00/elonpet/blob/main/media/readme-assets/elon.gif?raw=true" width="50%">
 Elonpets spawn on your VSCode IDE, bombard you with tweets, micromanage & scold you for every error. If you fail your surprise code review, ElonPet scrubs your code & kicks you out of Twitter HQ.
+
+<br />
+<br />
+
+<p float="left">
+  <img src="https://github.com/ming-00/elonpet/blob/main/media/readme-assets/elonpets.png?raw=true" width="33%">
+  <img src="https://github.com/ming-00/elonpet/blob/main/media/readme-assets/tweets.png?raw=true" width="33%">
+  <img src="https://github.com/ming-00/elonpet/blob/main/media/readme-assets/review.png?raw=true" width="33%">
+</p>
 
 ## What it does
 Have you ever wanted Elon Musk to be your boss? Us too! This is why we built ElonPet, the stuff of every dev's dreams. Ensure you reach peak productivity with necessary features such as: 
